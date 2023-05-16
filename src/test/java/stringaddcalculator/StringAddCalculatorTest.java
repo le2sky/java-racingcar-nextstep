@@ -1,6 +1,7 @@
 package stringaddcalculator;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -41,6 +42,13 @@ class StringAddCalculatorTest {
         assertThat(result).isEqualTo(6);
     }
 
+    @Test
+    void splitAndSum_negative() {
+        assertThatThrownBy(() -> {
+            StringAddCalculator.splitAndSum("-1,2,3");
+        }).isInstanceOf(RuntimeException.class);
+    }
+
     private static class StringAddCalculator {
 
         public static final String DEFAULT_REGX = ",|:";
@@ -75,7 +83,12 @@ class StringAddCalculatorTest {
         }
 
         private static int parseOperand(String expression) {
-            return Integer.parseInt(expression);
+            int target = Integer.parseInt(expression);
+            if (target < 0) {
+                throw new RuntimeException();
+            }
+
+            return target;
         }
     }
 }
