@@ -3,6 +3,8 @@ package stringaddcalculator;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
 
 class StringAddCalculatorTest {
@@ -33,16 +35,32 @@ class StringAddCalculatorTest {
         assertThat(result).isEqualTo(6);
     }
 
+    @Test
+    void splitAndSum_custom_구분자() {
+        int result = StringAddCalculator.splitAndSum("//;\n1;2;3");
+        assertThat(result).isEqualTo(6);
+    }
+
     private static class StringAddCalculator {
+
+        public static final String DEFAULT_REGX = ",|:";
+        public static final String CUSTOM_REGX = "//(.)\n(.*)";
 
         public static int splitAndSum(String expression) {
             if (Optional.ofNullable(expression).isEmpty() || expression.isEmpty()) {
                 return 0;
             }
 
-            String[] operands = expression.split(",|:");
-            if (operands.length > 1) {
-                return sum(operands);
+            Matcher m = Pattern.compile(CUSTOM_REGX).matcher(expression);
+            if (m.find()) {
+                String customDelimiter = m.group(1);
+                String[] tokens = m.group(2).split(customDelimiter);
+                return sum(tokens);
+            }
+
+            String[] defaultTokens = expression.split(DEFAULT_REGX);
+            if (defaultTokens.length > 1) {
+                return sum(defaultTokens);
             }
 
             return parseOperand(expression);
