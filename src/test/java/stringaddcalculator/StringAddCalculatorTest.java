@@ -21,12 +21,36 @@ class StringAddCalculatorTest {
         assertThat(result).isEqualTo(1);
     }
 
+    @Test
+    void splitAndSum_쉼표구분자() {
+        int result = StringAddCalculator.splitAndSum("1,2");
+        assertThat(result).isEqualTo(3);
+    }
+
     private static class StringAddCalculator {
 
         public static int splitAndSum(String expression) {
             if (Optional.ofNullable(expression).isEmpty() || expression.isEmpty()) {
                 return 0;
             }
+
+            String[] operands = expression.split(",");
+            if (operands.length > 1) {
+                return sum(operands);
+            }
+
+            return parseOperand(expression);
+        }
+
+        private static int sum(String[] operands) {
+            int sum = 0;
+            for (String operand : operands) {
+                sum += parseOperand(operand);
+            }
+            return sum;
+        }
+
+        private static int parseOperand(String expression) {
             return Integer.parseInt(expression);
         }
     }
