@@ -3,6 +3,7 @@ package stringaddcalculator;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -49,46 +50,67 @@ class StringAddCalculatorTest {
         }).isInstanceOf(RuntimeException.class);
     }
 
+    @Test
+    void splitAndSum_not_number() {
+        assertThatThrownBy(() -> {
+            StringAddCalculator.splitAndSum("a,2,3");
+        }).isInstanceOf(RuntimeException.class);
+    }
+
     private static class StringAddCalculator {
 
-        public static final String DEFAULT_REGX = ",|:";
-        public static final String CUSTOM_REGX = "//(.)\n(.*)";
+        private static final String DEFAULT_REGX = ",|:";
+        private static final String CUSTOM_REGX = "//(.)\n(.*)";
+        public static final String CUSTOM_DELIMITER_START = "//";
 
         public static int splitAndSum(String expression) {
-            if (Optional.ofNullable(expression).isEmpty() || expression.isEmpty()) {
+            if (isNullOrEmpty(expression)) {
                 return 0;
             }
+            return sum(split(expression));
+        }
 
+        private static boolean isNullOrEmpty(String expression) {
+            return Optional.ofNullable(expression).isEmpty() || expression.isEmpty();
+        }
+
+        private static String[] split(String expression) {
+            if (hasCustomDelimiter(expression)) {
+                return splitByCustomDelimiter(expression);
+            }
+
+            return expression.split(DEFAULT_REGX);
+        }
+
+        private static boolean hasCustomDelimiter(String expression) {
+            return expression.startsWith(CUSTOM_DELIMITER_START);
+        }
+
+        private static String[] splitByCustomDelimiter(String expression) {
             Matcher m = Pattern.compile(CUSTOM_REGX).matcher(expression);
             if (m.find()) {
                 String customDelimiter = m.group(1);
-                String[] tokens = m.group(2).split(customDelimiter);
-                return sum(tokens);
+                return m.group(2).split(customDelimiter);
             }
 
-            String[] defaultTokens = expression.split(DEFAULT_REGX);
-            if (defaultTokens.length > 1) {
-                return sum(defaultTokens);
-            }
-
-            return parseOperand(expression);
+            return new String[]{};
         }
 
         private static int sum(String[] operands) {
-            int sum = 0;
-            for (String operand : operands) {
-                sum += parseOperand(operand);
-            }
-            return sum;
+            return Arrays.stream(operands)
+                .mapToInt(StringAddCalculator::parseOperand)
+                .sum();
         }
 
-        private static int parseOperand(String expression) {
-            int target = Integer.parseInt(expression);
-            if (target < 0) {
+        private static int parseOperand(String operand) {
+            if (checkNegative(operand)) {
                 throw new RuntimeException();
             }
+            return Integer.parseInt(operand);
+        }
 
-            return target;
+        private static boolean checkNegative(String operand) {
+            return operand.startsWith("-");
         }
     }
 }
