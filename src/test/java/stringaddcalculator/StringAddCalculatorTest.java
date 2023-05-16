@@ -27,6 +27,12 @@ class StringAddCalculatorTest {
         assertThat(result).isEqualTo(3);
     }
 
+    @Test
+    void splitAndSum_쉼표_또는_콜론_구분() {
+        int result = StringAddCalculator.splitAndSum("1,2:3");
+        assertThat(result).isEqualTo(6);
+    }
+
     private static class StringAddCalculator {
 
         public static int splitAndSum(String expression) {
@@ -34,7 +40,7 @@ class StringAddCalculatorTest {
                 return 0;
             }
 
-            String[] operands = expression.split(",");
+            String[] operands = expression.split(",|:");
             if (operands.length > 1) {
                 return sum(operands);
             }
