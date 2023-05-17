@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
-public class CarValidationTest {
+public class CarTest {
 
     @Test
     void 자동차_이름이_5자_초과인_경우_예외를_발생한다() {
