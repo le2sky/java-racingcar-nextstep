@@ -19,6 +19,13 @@ public class CarTest {
     }
 
     @Test
+    public void 자동차_이름이_블랭크인_경우_예외를_발생한다() {
+        assertThrowingException("\n");
+        assertThrowingException("  ");
+        assertThrowingException(" ");
+    }
+
+    @Test
     void 자동차_이름이_5자_이하인_경우_예외를_발생하지_않는다() {
         checkCarName("abcde");
         checkCarName("a");
@@ -34,17 +41,17 @@ public class CarTest {
         new Car(carName);
     }
 
-    private class Car {
+    public static class Car {
 
         private static final int MAXIMUM_NAME_LENGTH = 5;
 
         public Car(String carName) {
-            checkNullOrEmpty(carName);
+            checkInvalidFormat(carName);
             checkCarNameLength(carName);
         }
 
-        private void checkNullOrEmpty(String carName) {
-            if (isNullOrEmpty(carName)) {
+        private void checkInvalidFormat(String carName) {
+            if (isNullOrEmpty(carName) || carName.isBlank()) {
                 throw new IllegalArgumentException();
             }
         }
