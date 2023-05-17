@@ -32,19 +32,32 @@ public class CarValidationTest {
 
 
     private void checkCarName(String carName) {
-        checkNullOrEmpty(carName);
-        checkCarNameLength(carName);
+        new Car(carName);
     }
 
-    private static void checkNullOrEmpty(String carName) {
-        if (Optional.ofNullable(carName).isEmpty() || carName.isEmpty()) {
-            throw new IllegalArgumentException();
+    private class Car {
+
+        private static final int MAXIMUM_NAME_LENGTH = 5;
+
+        public Car(String carName) {
+            checkNullOrEmpty(carName);
+            checkCarNameLength(carName);
         }
-    }
 
-    private static void checkCarNameLength(String carName) {
-        if (carName.length() > 5) {
-            throw new IllegalArgumentException();
+        private void checkNullOrEmpty(String carName) {
+            if (isNullOrEmpty(carName)) {
+                throw new IllegalArgumentException();
+            }
+        }
+
+        private boolean isNullOrEmpty(String carName) {
+            return Optional.ofNullable(carName).isEmpty() || carName.isEmpty();
+        }
+
+        private void checkCarNameLength(String carName) {
+            if (carName.length() > MAXIMUM_NAME_LENGTH) {
+                throw new IllegalArgumentException();
+            }
         }
     }
 }
