@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import racingcargame.CarTest.Car;
 
-public class CarCreationTest {
+public class CarsTest {
 
     @Test
     void 콤마를_구분자로_이용해서_자동차를_생성한다() {
