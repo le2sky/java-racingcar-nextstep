@@ -30,7 +30,6 @@ public class CarTest {
         }).isInstanceOf(IllegalArgumentException.class);
     }
 
-
     private void checkCarName(String carName) {
         new Car(carName);
     }
