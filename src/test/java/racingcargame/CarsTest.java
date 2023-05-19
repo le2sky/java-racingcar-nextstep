@@ -36,6 +36,13 @@ public class CarsTest {
         }).isInstanceOf(IllegalArgumentException.class);
     }
 
+    @Test
+    void 자동차_이름_배열이_null인_경우_예외를_발생한다() {
+        assertThatThrownBy(() -> {
+            Cars.with(null);
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
+
     public static class Cars {
 
         private final List<Car> cars;
