@@ -13,31 +13,27 @@ import racingcargame.CarTest.Car;
 public class CarsTest {
 
     @Test
-    void 콤마를_구분자로_이용해서_자동차를_생성한다() {
-        Cars cars = createCars("a,b,c");
+    void 자동차를_생성한다() {
+        Cars cars = Cars.with(new String[]{"a", "b", "c"});
         assertThat(cars.size()).isEqualTo(3);
 
-        Cars cars2 = createCars("a,b,c,d");
+        Cars cars2 = Cars.with(new String[]{"a", "b", "c", "d"});
         assertThat(cars2.size()).isEqualTo(4);
     }
 
     @Test
     void null이나_빈문자열_혹은_블랭크가_들어오면_예외를_발생한다() {
         assertThatThrownBy(() -> {
-            createCars("");
+            Cars.with(new String[]{"", "A"});
         }).isInstanceOf(IllegalArgumentException.class);
 
         assertThatThrownBy(() -> {
-            createCars(null);
+            Cars.with(new String[]{"B", null});
         }).isInstanceOf(IllegalArgumentException.class);
 
         assertThatThrownBy(() -> {
-            createCars("  ");
+            Cars.with(new String[]{"  ", "C"});
         }).isInstanceOf(IllegalArgumentException.class);
-    }
-
-    private Cars createCars(String input) {
-        return Cars.with(input);
     }
 
     public static class Cars {
@@ -48,15 +44,15 @@ public class CarsTest {
             this.cars = cars;
         }
 
-        public static Cars with(String input) {
-            checkInput(input);
-            return new Cars(Arrays.stream(input.split(","))
+        public static Cars with(String[] carNames) {
+            checkInput(carNames);
+            return new Cars(Arrays.stream(carNames)
                 .map(Car::new)
                 .collect(Collectors.toList()));
         }
 
-        private static void checkInput(String input) {
-            if (Optional.ofNullable(input).isEmpty()) {
+        private static void checkInput(String[] carNames) {
+            if (Optional.ofNullable(carNames).isEmpty()) {
                 throw new IllegalArgumentException();
             }
         }
