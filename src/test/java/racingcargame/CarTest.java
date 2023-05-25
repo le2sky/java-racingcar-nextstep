@@ -68,6 +68,9 @@ public class CarTest {
     public static class Car {
 
         private static final int MAXIMUM_NAME_LENGTH = 5;
+        public static final int MINIMUM_NUMBER_FOR_MOVE_EXECUTE = 0;
+        public static final int MAXIMUM_NUMBER_FOR_MOVE_EXECUTE = 9;
+        public static final int MOVABLE_STANDARD = 4;
         private int position;
 
         public Car(String carName) {
@@ -93,11 +96,16 @@ public class CarTest {
         }
 
         public void move(int num) {
-            if (num < 0 || num > 9) {
-                throw new IllegalArgumentException();
+            checkNumberRange(num);
+            if (num < MOVABLE_STANDARD) {
+                return;
             }
-            if (num >= 4) {
-                position++;
+            position++;
+        }
+
+        private void checkNumberRange(int num) {
+            if (num < MINIMUM_NUMBER_FOR_MOVE_EXECUTE || num > MAXIMUM_NUMBER_FOR_MOVE_EXECUTE) {
+                throw new IllegalArgumentException();
             }
         }
 

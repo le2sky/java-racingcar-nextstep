@@ -52,13 +52,13 @@ public class CarsTest {
         }
 
         public static Cars with(String[] carNames) {
-            checkInput(carNames);
+            checkCarNames(carNames);
             return new Cars(Arrays.stream(carNames)
                 .map(Car::new)
                 .collect(Collectors.toList()));
         }
 
-        private static void checkInput(String[] carNames) {
+        private static void checkCarNames(String[] carNames) {
             if (Optional.ofNullable(carNames).isEmpty()) {
                 throw new IllegalArgumentException();
             }
