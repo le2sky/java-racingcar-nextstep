@@ -16,6 +16,10 @@ public class RacingCarGame {
         this.cars = Cars.with(carNames);
     }
 
+    public void play() {
+        checkRoundCountRange(roundCount--);
+    }
+
     private void checkRoundCountRange(int roundCount) {
         if (roundCount < MINIMUM_ROUND_COUNT) {
             throw new IllegalArgumentException();
@@ -39,9 +43,5 @@ public class RacingCarGame {
 
     public int getParticipantCarCount() {
         return cars.size();
-    }
-
-    public void play() {
-        checkRoundCountRange(roundCount--);
     }
 }
