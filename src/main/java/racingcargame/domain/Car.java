@@ -1,32 +1,35 @@
 package racingcargame.domain;
+
 import java.util.Optional;
 
-public class Car {
+class Car {
 
     private static final int MAXIMUM_NAME_LENGTH = 5;
     private static final int MINIMUM_NUMBER_FOR_MOVE_EXECUTE = 0;
     private static final int MAXIMUM_NUMBER_FOR_MOVE_EXECUTE = 9;
     private static final int MOVABLE_STANDARD = 4;
+    private final String name;
     private int position;
 
-    public Car(String carName) {
-        checkInvalidFormat(carName);
-        checkCarNameLength(carName);
+    public Car(String name) {
+        checkInvalidFormat(name);
+        checkCarNameLength(name);
+        this.name = name;
         this.position = 0;
     }
 
-    private void checkInvalidFormat(String carName) {
-        if (isNullOrEmpty(carName) || carName.isBlank()) {
+    private void checkInvalidFormat(String name) {
+        if (isNullOrEmpty(name) || name.isBlank()) {
             throw new IllegalArgumentException();
         }
     }
 
-    private boolean isNullOrEmpty(String carName) {
-        return Optional.ofNullable(carName).isEmpty() || carName.isEmpty();
+    private boolean isNullOrEmpty(String name) {
+        return Optional.ofNullable(name).isEmpty() || name.isEmpty();
     }
 
-    private void checkCarNameLength(String carName) {
-        if (carName.length() > MAXIMUM_NAME_LENGTH) {
+    private void checkCarNameLength(String name) {
+        if (name.length() > MAXIMUM_NAME_LENGTH) {
             throw new IllegalArgumentException();
         }
     }
@@ -47,5 +50,9 @@ public class Car {
 
     public int getPosition() {
         return position;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -3,6 +3,7 @@ package racingcargame.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class CarsTest {
@@ -36,5 +37,42 @@ class CarsTest {
         assertThatThrownBy(() -> {
             Cars.with(null);
         }).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 자동차를_전진시킬때_랜덤_배열의_수와_자동차의_수가_일치하지_않으면_예외_발생() {
+        assertThatThrownBy(() -> {
+            Cars cars = Cars.with(new String[]{"a", "b"});
+            cars.playRound(new int[]{1});
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 자동차를_전진시킬때_랜덤_배열이_null이라면_예외_발생() {
+        assertThatThrownBy(() -> {
+            Cars cars = Cars.with(new String[]{"a", "b"});
+            cars.playRound(null);
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 주어진_랜덤_배열을_받아서_자동차를_전진시킨다() {
+        Cars cars = Cars.with(new String[]{"a"});
+        PlayResult expected = new PlayResult(List.of(new CarData("a", 1)));
+        PlayResult result = cars.playRound(new int[]{6});
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    void 더욱_복잡하게_주어진_랜덤_배열을_받아서_자동차_전진_기능_검증하기() {
+        Cars cars = Cars.with(new String[]{"a", "b", "c"});
+        PlayResult expected = new PlayResult(
+                List.of(new CarData("a", 1),
+                        new CarData("b", 2),
+                        new CarData("c", 0)));
+
+        cars.playRound(new int[]{5, 6, 1});
+        PlayResult result = cars.playRound(new int[]{2, 8, 2});
+        assertThat(result).isEqualTo(expected);
     }
 }
