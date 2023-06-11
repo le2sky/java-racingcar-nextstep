@@ -6,18 +6,18 @@ public class RacingCarGame {
 
     public static final int MINIMUM_PARTICIPANT_COUNT = 1;
     public static final int MINIMUM_ROUND_COUNT = 1;
+    private final RandomGenerator randomGenerator;
     private final Cars cars;
     private int roundCount;
 
-    public RacingCarGame(int roundCount, String[] carNames) {
+    public RacingCarGame(int roundCount, String[] carNames, RandomGenerator randomGenerator) {
         checkRoundCountRange(roundCount);
         checkCarNames(carNames);
+        checkRandomGenerator(randomGenerator);
+
         this.roundCount = roundCount;
         this.cars = Cars.with(carNames);
-    }
-
-    public void play() {
-        checkRoundCountRange(roundCount--);
+        this.randomGenerator = randomGenerator;
     }
 
     private void checkRoundCountRange(int roundCount) {
@@ -35,6 +35,16 @@ public class RacingCarGame {
     private boolean isInvalidCarNames(String[] carNames) {
         return Optional.ofNullable(carNames).isEmpty()
                 || carNames.length < MINIMUM_PARTICIPANT_COUNT;
+    }
+
+    private void checkRandomGenerator(RandomGenerator randomGenerator) {
+        if (Optional.ofNullable(randomGenerator).isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public void play() {
+        checkRoundCountRange(roundCount--);
     }
 
     public int getRoundCount() {
