@@ -43,8 +43,10 @@ public class RacingCarGame {
         }
     }
 
-    public void play() {
+    public PlayResult play() {
         checkRoundCountRange(roundCount--);
+        return cars.playRound(randomGenerator
+                .generateWithSize(cars.size()));
     }
 
     public int getRoundCount() {

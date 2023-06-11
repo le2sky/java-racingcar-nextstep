@@ -3,8 +3,10 @@ package racingcargame.domain;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import racingcargame.infrastructure.RandomGeneratorImpl;
+import racingcargame.infrastructure.RandomGeneratorStub;
 
 class RacingCarGameTest {
 
@@ -58,5 +60,21 @@ class RacingCarGameTest {
         assertThatThrownBy(() -> {
             new RacingCarGame(1, carNames, null);
         }).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 게임_플레이_로직_검증() {
+        PlayResult expected = new PlayResult(List.of(
+                new Description("pobi", 1),
+                new Description("lsky", 2),
+                new Description("ksky", 0)
+        ));
+
+        RandomGeneratorStub stub = new RandomGeneratorStub();
+        stub.given(new int[]{9, 4, 1});
+        stub.given(new int[]{3, 6, 2});
+        RacingCarGame game = new RacingCarGame(2, carNames, stub);
+        game.play();
+        assertThat(game.play()).isEqualTo(expected);
     }
 }
