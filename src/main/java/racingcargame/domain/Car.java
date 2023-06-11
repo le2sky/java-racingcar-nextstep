@@ -34,6 +34,10 @@ class Car {
         }
     }
 
+    public Description describeSelf() {
+        return new Description(name, position);
+    }
+
     public void move(int num) {
         checkNumberRange(num);
         if (num < MOVABLE_STANDARD) {
@@ -46,13 +50,5 @@ class Car {
         if (num < MINIMUM_NUMBER_FOR_MOVE_EXECUTE || num > MAXIMUM_NUMBER_FOR_MOVE_EXECUTE) {
             throw new IllegalArgumentException();
         }
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    public String getName() {
-        return name;
     }
 }
