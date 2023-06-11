@@ -2,12 +2,12 @@ package racingcargame.domain;
 
 import java.util.Objects;
 
-public class CarData {
+public class Description {
 
     private final String name;
     private final int position;
 
-    public CarData(String name, int position) {
+    public Description(String name, int position) {
         this.name = name;
         this.position = position;
     }
@@ -29,12 +29,12 @@ public class CarData {
             return false;
         }
 
-        CarData carData = (CarData) o;
+        Description description = (Description) o;
 
-        if (position != carData.position) {
+        if (position != description.position) {
             return false;
         }
-        return Objects.equals(name, carData.name);
+        return Objects.equals(name, description.name);
     }
 
     @Override
