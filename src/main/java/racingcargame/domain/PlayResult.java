@@ -5,14 +5,14 @@ import java.util.Objects;
 
 public class PlayResult {
 
-    private final List<CarData> carsDataList;
+    private final List<Description> carDescriptions;
 
-    public PlayResult(List<CarData> carsDataList) {
-        this.carsDataList = carsDataList;
+    public PlayResult(List<Description> carDescriptions) {
+        this.carDescriptions = carDescriptions;
     }
 
-    public List<CarData> getCarsDataList() {
-        return carsDataList;
+    public List<Description> getCarDescriptions() {
+        return carDescriptions;
     }
 
     @Override
@@ -26,11 +26,11 @@ public class PlayResult {
 
         PlayResult that = (PlayResult) o;
 
-        return Objects.equals(carsDataList, that.carsDataList);
+        return Objects.equals(carDescriptions, that.carDescriptions);
     }
 
     @Override
     public int hashCode() {
-        return carsDataList != null ? carsDataList.hashCode() : 0;
+        return carDescriptions != null ? carDescriptions.hashCode() : 0;
     }
 }

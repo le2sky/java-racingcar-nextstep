@@ -39,7 +39,7 @@ class CarTest {
         car.move(3);
         car.move(0);
 
-        assertThat(car.getPosition()).isEqualTo(2);
+        assertThat(car.describeSelf().getPosition()).isEqualTo(2);
     }
 
     @Test
@@ -52,6 +52,13 @@ class CarTest {
         assertThatThrownBy(() -> {
             car.move(10);
         }).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 자동차의_현재_정보를_조회한다() {
+        Car car = new Car("test");
+        Description expected = new Description("test", 0);
+        assertThat(car.describeSelf()).isEqualTo(expected);
     }
 
     private void assertThrowingException(String carName) {

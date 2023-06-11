@@ -58,7 +58,7 @@ class CarsTest {
     @Test
     void 주어진_랜덤_배열을_받아서_자동차를_전진시킨다() {
         Cars cars = Cars.with(new String[]{"a"});
-        PlayResult expected = new PlayResult(List.of(new CarData("a", 1)));
+        PlayResult expected = new PlayResult(List.of(new Description("a", 1)));
         PlayResult result = cars.playRound(new int[]{6});
         assertThat(result).isEqualTo(expected);
     }
@@ -67,9 +67,9 @@ class CarsTest {
     void 더욱_복잡하게_주어진_랜덤_배열을_받아서_자동차_전진_기능_검증하기() {
         Cars cars = Cars.with(new String[]{"a", "b", "c"});
         PlayResult expected = new PlayResult(
-                List.of(new CarData("a", 1),
-                        new CarData("b", 2),
-                        new CarData("c", 0)));
+                List.of(new Description("a", 1),
+                        new Description("b", 2),
+                        new Description("c", 0)));
 
         cars.playRound(new int[]{5, 6, 1});
         PlayResult result = cars.playRound(new int[]{2, 8, 2});

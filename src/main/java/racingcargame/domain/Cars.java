@@ -59,7 +59,7 @@ public class Cars {
     private PlayResult buildPlayResult() {
         return new PlayResult(
                 cars.stream()
-                        .map(car -> new CarData(car.getName(), car.getPosition()))
+                        .map(Car::describeSelf)
                         .collect(Collectors.toList()));
     }
 }
