@@ -57,9 +57,12 @@ public class Cars {
     }
 
     private PlayResult buildPlayResult() {
-        return new PlayResult(
-                cars.stream()
-                        .map(Car::describeSelf)
-                        .collect(Collectors.toList()));
+        return new PlayResult(getCarDescriptions());
+    }
+
+    public List<Description> getCarDescriptions() {
+        return cars.stream()
+                .map(Car::describeSelf)
+                .collect(Collectors.toList());
     }
 }

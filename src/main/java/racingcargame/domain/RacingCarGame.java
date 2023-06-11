@@ -1,6 +1,10 @@
 package racingcargame.domain;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class RacingCarGame {
 
@@ -45,8 +49,7 @@ public class RacingCarGame {
 
     public PlayResult play() {
         checkRoundCountRange(roundCount--);
-        return cars.playRound(randomGenerator
-                .generateWithSize(cars.size()));
+        return cars.playRound(randomGenerator.generateWithSize(cars.size()));
     }
 
     public int getRoundCount() {
@@ -55,5 +58,30 @@ public class RacingCarGame {
 
     public int getParticipantCarCount() {
         return cars.size();
+    }
+
+    public List<String> showWinner() {
+        checkGameEnd();
+        return findWinnersName(findWinnerPosition());
+    }
+
+    private void checkGameEnd() {
+        if (roundCount >= MINIMUM_ROUND_COUNT) {
+            throw new IllegalStateException();
+        }
+    }
+
+    private int findWinnerPosition() {
+        return cars.getCarDescriptions().stream()
+                .max(Comparator.comparingInt(Description::getPosition))
+                .orElseThrow(NoSuchElementException::new)
+                .getPosition();
+    }
+
+    private List<String> findWinnersName(int winnerPosition) {
+        return cars.getCarDescriptions().stream()
+                .filter(car -> car.getPosition() == winnerPosition)
+                .map(Description::getName)
+                .collect(Collectors.toList());
     }
 }

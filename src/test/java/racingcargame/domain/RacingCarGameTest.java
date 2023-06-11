@@ -77,4 +77,31 @@ class RacingCarGameTest {
         game.play();
         assertThat(game.play()).isEqualTo(expected);
     }
+
+    @Test
+    void 게임의_상태가_종료되기_이전에_우승자를_조회하면_예외를_발생한다() {
+        RacingCarGame game = new RacingCarGame(1, carNames, new RandomGeneratorImpl());
+        assertThatThrownBy(game::showWinner)
+                .isInstanceOf(IllegalStateException.class);
+    }
+
+    @Test
+    void 게임의_승리자를_보여준다() {
+        List<String> expected = List.of("pobi");
+        RandomGeneratorStub stub = new RandomGeneratorStub();
+        stub.given(new int[]{6, 3, 1});
+        RacingCarGame game = new RacingCarGame(1, carNames, stub);
+        game.play();
+        assertThat(game.showWinner()).isEqualTo(expected);
+    }
+
+    @Test
+    void 게임의_우승자는_여러명이_될_수있다() {
+        List<String> expected = List.of("pobi", "lsky");
+        RandomGeneratorStub stub = new RandomGeneratorStub();
+        stub.given(new int[]{6, 6, 1});
+        RacingCarGame game = new RacingCarGame(1, carNames, stub);
+        game.play();
+        assertThat(game.showWinner()).isEqualTo(expected);
+    }
 }
