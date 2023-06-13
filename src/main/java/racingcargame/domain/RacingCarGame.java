@@ -84,4 +84,8 @@ public class RacingCarGame {
                 .map(Description::getName)
                 .collect(Collectors.toList());
     }
+
+    public boolean isGameEnd() {
+        return roundCount < MINIMUM_ROUND_COUNT;
+    }
 }

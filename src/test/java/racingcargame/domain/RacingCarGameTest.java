@@ -104,4 +104,14 @@ class RacingCarGameTest {
         game.play();
         assertThat(game.showWinner()).isEqualTo(expected);
     }
+
+    @Test
+    void 게임의_종료_여부를_확인할_수_있다() {
+        RandomGeneratorStub stub = new RandomGeneratorStub();
+        stub.given(new int[]{6, 6, 1});
+        RacingCarGame game = new RacingCarGame(1, carNames, stub);
+        assertThat(game.isGameEnd()).isFalse();
+        game.play();
+        assertThat(game.isGameEnd()).isTrue();
+    }
 }
