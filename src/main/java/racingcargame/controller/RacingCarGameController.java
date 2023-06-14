@@ -1,7 +1,6 @@
 package racingcargame.controller;
 
 import racingcargame.Configuration;
-import racingcargame.domain.PlayResult;
 import racingcargame.domain.RacingCarGame;
 import racingcargame.view.InputView;
 import racingcargame.view.OutputView;
