@@ -49,7 +49,8 @@ class RacingCarGameTest {
     @Test
     void 잔여_라운드_수가_없을_때_플레이_요청을_하면_예외를_발생한다() {
         assertThatThrownBy(() -> {
-            RacingCarGame game = new RacingCarGame(1, carNames, new RandomGeneratorImpl());
+            RacingCarGame game =
+                    new RacingCarGame(1, carNames, new RandomGeneratorImpl());
             game.play();
             game.play();
         }).isInstanceOf(IllegalArgumentException.class);
