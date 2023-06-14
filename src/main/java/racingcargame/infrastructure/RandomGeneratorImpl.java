@@ -4,7 +4,7 @@ import racingcargame.domain.RandomGenerator;
 
 public class RandomGeneratorImpl implements RandomGenerator {
 
-    public static final int MINIMUM_SIZE = 0;
+    private static final int MINIMUM_SIZE = 0;
 
     @Override
     public int[] generateWithSize(int size) {

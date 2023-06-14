@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 public class RacingCarGame {
 
-    public static final int MINIMUM_PARTICIPANT_COUNT = 1;
-    public static final int MINIMUM_ROUND_COUNT = 1;
+    private static final int MINIMUM_PARTICIPANT_COUNT = 1;
+    private static final int MINIMUM_ROUND_COUNT = 1;
     private final RandomGenerator randomGenerator;
     private final Cars cars;
     private int roundCount;
