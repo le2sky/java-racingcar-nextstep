@@ -48,8 +48,13 @@ public class RacingCarGame {
     }
 
     public PlayResult play() {
-        checkRoundCountRange(roundCount--);
+        checkRoundCountRange(roundCount);
+        decreaseCount();
         return cars.playRound(randomGenerator.generateWithSize(cars.size()));
+    }
+
+    private void decreaseCount() {
+        roundCount--;
     }
 
     public int getRoundCount() {
