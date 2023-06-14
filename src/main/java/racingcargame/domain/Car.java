@@ -40,10 +40,9 @@ class Car {
 
     public void move(int num) {
         checkNumberRange(num);
-        if (num < MOVABLE_STANDARD) {
-            return;
+        if (num >= MOVABLE_STANDARD) {
+            position++;
         }
-        position++;
     }
 
     private void checkNumberRange(int num) {
