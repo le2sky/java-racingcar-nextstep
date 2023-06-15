@@ -61,10 +61,6 @@ public class RacingCarGame {
         return roundCount;
     }
 
-    public int getParticipantCarCount() {
-        return cars.size();
-    }
-
     public List<String> showWinner() {
         checkGameEnd();
         return findWinnersName(findWinnerPosition());

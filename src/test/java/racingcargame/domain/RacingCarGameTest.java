@@ -27,12 +27,6 @@ class RacingCarGameTest {
     }
 
     @Test
-    void 자동차_게임은_게임의_참여자를_알고있어야_한다() {
-        RacingCarGame game = new RacingCarGame(5, carNames, new RandomGeneratorImpl());
-        assertThat(game.getParticipantCarCount()).isEqualTo(3);
-    }
-
-    @Test
     void 자동차_게임의_참여자가_null인_경우_예외를_발생한다() {
         assertThatThrownBy(() -> {
             new RacingCarGame(5, null, new RandomGeneratorImpl());
