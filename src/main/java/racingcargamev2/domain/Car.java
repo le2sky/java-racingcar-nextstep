@@ -9,7 +9,7 @@ public class Car {
     private final Position position;
 
     public Car(String name) {
-        this.name = new Name(name);
+        this.name = Name.of(name);
         this.position = Position.zero();
     }
 
