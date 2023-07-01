@@ -11,4 +11,12 @@ public class RacingGame {
     public static RacingGame of(final int round) {
         return new RacingGame(round);
     }
+
+    public void race() {
+        round.race();
+    }
+
+    public boolean isEnd() {
+        return round.isEnd();
+    }
 }
