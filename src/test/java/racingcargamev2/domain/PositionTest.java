@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class PositionTest {
+public class PositionTest {
 
     @DisplayName("포지션은 음수일 수 없다.")
     @Test
