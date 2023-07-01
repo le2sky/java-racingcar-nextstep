@@ -15,14 +15,14 @@ public class Car {
     }
 
     public void move(final int condition) {
-        checkMoveConditionRange(condition);
+        checkMoveConditionInRange(condition);
 
-        if (condition >= MIN_MOVE_NUM) {
+        if (isMovable(condition)) {
             position.move();
         }
     }
 
-    private void checkMoveConditionRange(final int condition) {
+    private void checkMoveConditionInRange(final int condition) {
         if (isMoveConditionInRange(condition)) {
             throw new IllegalArgumentException("전진에 필요한 숫자는 0에서 9사이의 숫자입니다.");
         }
@@ -30,6 +30,10 @@ public class Car {
 
     private boolean isMoveConditionInRange(final int condition) {
         return condition < MIN_CONDITION_RANGE || condition > MAX_CONDITION_RANGE;
+    }
+
+    private boolean isMovable(final int condition) {
+        return condition >= MIN_MOVE_NUM;
     }
 
     public Position getPosition() {
