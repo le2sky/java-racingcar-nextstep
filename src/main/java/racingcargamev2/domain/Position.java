@@ -6,7 +6,7 @@ public class Position {
 
     private int position;
 
-    private Position(int position) {
+    private Position(final int position) {
         this.position = position;
     }
 
@@ -14,11 +14,11 @@ public class Position {
         return new Position(0);
     }
 
-    public static Position with(int position) {
+    public static Position with(final int position) {
         return new Position(position);
     }
 
-    public void increase() {
+    public void move() {
         position++;
     }
 

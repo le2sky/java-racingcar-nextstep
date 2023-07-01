@@ -8,34 +8,38 @@ public class Name {
 
     private final String name;
 
-    private Name(String name) {
-        checkNull(name);
-        checkEmptyName(name);
-        checkNameLength(name);
+    private Name(final String name) {
+        checkInvalidName(name);
 
         this.name = name;
     }
 
-    private void checkNameLength(String name) {
-        if (name.length() > MAX_NAME_LENGTH) {
-            throw new IllegalArgumentException("자동차 이름은 5자를 초과할 수 없습니다.");
-        }
+    public static Name of(final String name) {
+        return new Name(name);
     }
 
-    private void checkEmptyName(String name) {
-        if (name.isBlank()) {
-            throw new IllegalArgumentException("자동차 이름은 빈 문자열이 될 수 없습니다.");
-        }
+    private void checkInvalidName(final String name) {
+        checkNull(name);
+        checkEmptyName(name);
+        checkNameLength(name);
     }
 
-    private void checkNull(String name) {
+    private void checkNull(final String name) {
         if (name == null) {
             throw new IllegalArgumentException("자동차 이름에 널값을 허용하지 않습니다.");
         }
     }
 
-    public static Name of(String name) {
-        return new Name(name);
+    private void checkEmptyName(final String name) {
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("자동차 이름은 빈 문자열이 될 수 없습니다.");
+        }
+    }
+
+    private void checkNameLength(final String name) {
+        if (name.length() > MAX_NAME_LENGTH) {
+            throw new IllegalArgumentException("자동차 이름은 5자를 초과할 수 없습니다.");
+        }
     }
 
     @Override
