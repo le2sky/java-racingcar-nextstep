@@ -1,5 +1,6 @@
 package racingcargamev2.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
@@ -13,5 +14,16 @@ public class PositionTest {
         assertThatThrownBy(() -> Position.of(-1))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("위치는 음수일 수 없습니다.");
+    }
+
+    @DisplayName("포지션을 증가시킨다.")
+    @Test
+    void increasePosition() {
+        Position position = Position.of(0);
+
+        position.move();
+        position.move();
+
+        assertThat(position).isEqualTo(Position.of(2));
     }
 }
