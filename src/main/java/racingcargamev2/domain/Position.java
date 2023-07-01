@@ -7,6 +7,8 @@ public class Position {
     private int position;
 
     private Position(final int position) {
+        checkNegativePosition(position);
+
         this.position = position;
     }
 
@@ -14,8 +16,14 @@ public class Position {
         return new Position(0);
     }
 
-    public static Position with(final int position) {
+    public static Position of(final int position) {
         return new Position(position);
+    }
+
+    private void checkNegativePosition(final int position) {
+        if (position < 0) {
+            throw new IllegalArgumentException("위치는 음수일 수 없습니다.");
+        }
     }
 
     public void move() {

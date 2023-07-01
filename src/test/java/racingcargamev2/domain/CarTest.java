@@ -40,7 +40,7 @@ public class CarTest {
         car.move(4);
         car.move(3);
 
-        assertThat(car.getPosition()).isEqualTo(Position.with(1));
+        assertThat(car.getPosition()).isEqualTo(Position.of(1));
     }
 
     @DisplayName("전진에 필요한 숫자는 0에서 9사이의 숫자이다.")
