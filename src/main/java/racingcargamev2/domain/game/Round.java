@@ -1,8 +1,8 @@
-package racingcargamev2.domain;
+package racingcargamev2.domain.game;
 
 import java.util.Objects;
 
-public class Round {
+class Round {
 
     private static final int MIN_GAME_ROUND = 1;
 

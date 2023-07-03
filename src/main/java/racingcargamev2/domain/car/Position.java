@@ -1,8 +1,8 @@
-package racingcargamev2.domain;
+package racingcargamev2.domain.car;
 
 import java.util.Objects;
 
-public class Position {
+class Position {
 
     private int position;
 
@@ -28,6 +28,10 @@ public class Position {
 
     public void move() {
         position++;
+    }
+
+    public int getPosition() {
+        return position;
     }
 
     @Override

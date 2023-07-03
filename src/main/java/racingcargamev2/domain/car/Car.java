@@ -1,6 +1,6 @@
-package racingcargamev2.domain;
+package racingcargamev2.domain.car;
 
-public class Car {
+class Car {
 
     private static final int MIN_CONDITION_RANGE = 0;
     private static final int MAX_CONDITION_RANGE = 9;
@@ -9,9 +9,13 @@ public class Car {
     private final Name name;
     private final Position position;
 
-    public Car(final String name) {
+    private Car(final String name) {
         this.name = Name.of(name);
         this.position = Position.zero();
+    }
+
+    public static Car of(final String name) {
+        return new Car(name);
     }
 
     public void move(final int condition) {
@@ -36,7 +40,7 @@ public class Car {
         return condition >= MIN_MOVE_NUM;
     }
 
-    public Position getPosition() {
-        return position;
+    public CarDescription describeSelf() {
+        return CarDescription.of(name.getName(), position.getPosition());
     }
 }

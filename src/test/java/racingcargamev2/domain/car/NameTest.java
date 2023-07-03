@@ -1,4 +1,4 @@
-package racingcargamev2.domain;
+package racingcargamev2.domain.car;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

@@ -1,8 +1,8 @@
-package racingcargamev2.domain;
+package racingcargamev2.domain.car;
 
 import java.util.Objects;
 
-public class Name {
+class Name {
 
     private static final int MAX_NAME_LENGTH = 5;
 
@@ -40,6 +40,10 @@ public class Name {
         if (name.length() > MAX_NAME_LENGTH) {
             throw new IllegalArgumentException("자동차 이름은 5자를 초과할 수 없습니다.");
         }
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
