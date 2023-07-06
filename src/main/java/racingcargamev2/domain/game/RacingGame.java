@@ -43,6 +43,14 @@ public class RacingGame {
         return round.isEnd();
     }
 
+    public List<String> showWinners() {
+        if (!isEnd()) {
+            throw new IllegalStateException("게임 종료 이전에 우승자를 조회할 수 없습니다.");
+        }
+
+        return cars.findWinners();
+    }
+
     public RoundSummary generateRoundSummary() {
         return RoundSummary.from(cars.describeAll());
     }

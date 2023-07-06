@@ -50,4 +50,36 @@ public class CarsTest {
                         CarDescription.of("kim ", 0)
                 ));
     }
+
+    @DisplayName("우승자의 이름을 찾는다.")
+    @Test
+    void findWinner() {
+        Cars cars = Cars.valueOf(
+                List.of(Car.of("lee", new AlwayMovePolicy()),
+                        Car.of("kim", new NeverMovePolicy())));
+
+        cars.moveAll();
+        cars.moveAll();
+
+        List<String> winnerNames = cars.findWinners();
+
+        assertThat(winnerNames).hasSize(1)
+                .contains("lee");
+    }
+
+    @DisplayName("우승자는 여러명일 수 있다.")
+    @Test
+    void findWinners() {
+        Cars cars = Cars.valueOf(
+                List.of(Car.of("lee", new AlwayMovePolicy()),
+                        Car.of("kim", new AlwayMovePolicy())));
+
+        cars.moveAll();
+        cars.moveAll();
+
+        List<String> winnerNames = cars.findWinners();
+
+        assertThat(winnerNames).hasSize(2)
+                .contains("lee", "kim");
+    }
 }

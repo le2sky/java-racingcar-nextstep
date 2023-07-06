@@ -21,12 +21,22 @@ class Car {
         this.movePolicy = movePolicy;
     }
 
+    private Car(final String name, final int position) {
+        this.name = Name.from(name);
+        this.position = Position.from(position);
+        this.movePolicy = new RandomMovePolicy();
+    }
+
     public static Car from(final String name) {
         return new Car(name);
     }
 
     public static Car of(final String name, final MovePolicy movePolicy) {
         return new Car(name, movePolicy);
+    }
+
+    public static Car of(final String name, final int position) {
+        return new Car(name, position);
     }
 
     public void move() {
@@ -37,5 +47,9 @@ class Car {
 
     public CarDescription describeSelf() {
         return CarDescription.of(name.getName(), position.getPosition());
+    }
+
+    public boolean isWinner(final Position winnerPosition) {
+        return position.equals(winnerPosition);
     }
 }

@@ -43,7 +43,6 @@ public class RacingGameTest {
                 .hasMessage("게임이 종료되어 더 이상 경주를 할 수 없습니다.");
     }
 
-
     @DisplayName("모든 자동차를 이동시키면, 라운드를 감소 시켜야 한다.")
     @Test
     void race() {
@@ -60,5 +59,28 @@ public class RacingGameTest {
                 ));
 
         assertThat(game.isEnd()).isTrue();
+    }
+
+    @DisplayName("게임이 종료되기 이전에 우승자를 조회할 수 없다.")
+    @Test
+    void showWinnersWhenPlaying() {
+        RacingGame game = RacingGame.of(2, CarsData.createCars());
+
+        assertThatThrownBy(game::showWinners)
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessage("게임 종료 이전에 우승자를 조회할 수 없습니다.");
+    }
+
+    @DisplayName("게임이 종료되면 우승자를 조회할 수 있다.")
+    @Test
+    void showWinners() {
+        RacingGame game = RacingGame.of(2, CarsData.createCars());
+        game.race();
+        game.race();
+
+        List<String> winners = game.showWinners();
+
+        assertThat(winners).hasSize(1)
+                .contains("lee");
     }
 }

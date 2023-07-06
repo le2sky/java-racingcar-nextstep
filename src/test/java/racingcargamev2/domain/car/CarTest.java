@@ -43,4 +43,26 @@ public class CarTest {
         assertThat(car.describeSelf())
                 .isEqualTo(CarDescription.of("lee", 1));
     }
+
+    @DisplayName("우승자의 위치가 주어지면, 자신이 우승 대상인지 검사한다.")
+    @Test
+    void isWinner() {
+        Position winnerPosition = Position.from(3);
+        Car car = Car.of("lee", 3);
+
+        boolean result = car.isWinner(winnerPosition);
+
+        assertThat(result).isTrue();
+    }
+
+    @DisplayName("자신이 우승자의 위치와 다른 경우, 우승자가 아니라고 판단한다.")
+    @Test
+    void isNotWinner() {
+        Position winnerPosition = Position.from(3);
+        Car car = Car.of("lee", 2);
+
+        boolean result = car.isWinner(winnerPosition);
+
+        assertThat(result).isFalse();
+    }
 }

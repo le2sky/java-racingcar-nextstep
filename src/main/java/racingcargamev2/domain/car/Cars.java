@@ -41,4 +41,25 @@ public class Cars {
                 .map(Car::describeSelf)
                 .collect(toList());
     }
+
+    public List<String> findWinners() {
+        return findWinnerNames(findWinnerPosition());
+    }
+
+    private Position findWinnerPosition() {
+        return Position.from(cars.stream()
+                .map(Car::describeSelf)
+                .map(CarDescription::getPosition)
+                .mapToInt(Integer::intValue)
+                .max()
+                .orElseThrow());
+    }
+
+    private List<String> findWinnerNames(final Position winnerPosition) {
+        return cars.stream()
+                .filter(car -> car.isWinner(winnerPosition))
+                .map(Car::describeSelf)
+                .map(CarDescription::getName)
+                .collect(toList());
+    }
 }
