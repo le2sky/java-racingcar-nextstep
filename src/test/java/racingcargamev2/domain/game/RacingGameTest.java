@@ -6,11 +6,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import racingcargamev2.domain.car.Car;
 import racingcargamev2.domain.car.CarDescription;
-import racingcargamev2.domain.car.Cars;
-import racingcargamev2.domain.car.policy.AlwayMovePolicy;
-import racingcargamev2.domain.car.policy.NeverMovePolicy;
+import racingcargamev2.domain.car.CarsData;
 
 public class RacingGameTest {
 
@@ -38,9 +35,7 @@ public class RacingGameTest {
     @DisplayName("잔여 라운드가 존재하지 않으면, 레이스를 할 수 없다.")
     @Test
     void raceWhenNoRoundExist() {
-        RacingGame game = RacingGame.of(1, Cars.valueOf(
-                List.of(Car.of("lee", new AlwayMovePolicy()),
-                        Car.of("kim", new NeverMovePolicy()))));
+        RacingGame game = RacingGame.of(1, CarsData.createCars());
 
         game.race();
 
@@ -52,9 +47,7 @@ public class RacingGameTest {
     @DisplayName("모든 자동차를 이동시키면, 라운드를 감소 시켜야 한다.")
     @Test
     void race() {
-        RacingGame game = RacingGame.of(2, Cars.valueOf(
-                List.of(Car.of("lee", new AlwayMovePolicy()),
-                        Car.of("kim", new NeverMovePolicy()))));
+        RacingGame game = RacingGame.of(2, CarsData.createCars());
 
         game.race();
         game.race();
