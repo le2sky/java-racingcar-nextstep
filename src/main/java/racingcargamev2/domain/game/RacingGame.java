@@ -44,11 +44,15 @@ public class RacingGame {
     }
 
     public List<String> showWinners() {
+        checkIsGameEndBeforeFindWinners();
+
+        return cars.findWinners();
+    }
+
+    private void checkIsGameEndBeforeFindWinners() {
         if (!isEnd()) {
             throw new IllegalStateException("게임 종료 이전에 우승자를 조회할 수 없습니다.");
         }
-
-        return cars.findWinners();
     }
 
     public RoundSummary generateRoundSummary() {
