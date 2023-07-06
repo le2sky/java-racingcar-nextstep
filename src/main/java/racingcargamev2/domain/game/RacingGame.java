@@ -13,12 +13,30 @@ public class RacingGame {
         this.cars = Cars.from(carNames);
     }
 
+    private RacingGame(final int round, final Cars cars) {
+        this.round = Round.from(round);
+        this.cars = cars;
+    }
+
     public static RacingGame of(final int round, final List<String> carNames) {
         return new RacingGame(round, carNames);
     }
 
+    public static RacingGame of(final int round, final Cars cars) {
+        return new RacingGame(round, cars);
+    }
+
     public void race() {
+        checkIsGameEnd();
+
         round.race();
+        cars.moveAll();
+    }
+
+    private void checkIsGameEnd() {
+        if (isEnd()) {
+            throw new IllegalStateException("게임이 종료되어 더 이상 경주를 할 수 없습니다.");
+        }
     }
 
     public boolean isEnd() {

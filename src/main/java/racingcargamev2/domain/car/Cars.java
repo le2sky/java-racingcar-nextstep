@@ -22,10 +22,18 @@ public class Cars {
                 .collect(toList()));
     }
 
+    public static Cars valueOf(final List<Car> cars) {
+        return new Cars(cars);
+    }
+
     private void checkCarsSize(final List<Car> cars) {
         if (cars.size() < MIN_CARS_SIZE) {
             throw new IllegalArgumentException("자동차는 적어도 하나 이상이어야 합니다.");
         }
+    }
+
+    public void moveAll() {
+        cars.forEach(Car::move);
     }
 
     public List<CarDescription> describeAll() {

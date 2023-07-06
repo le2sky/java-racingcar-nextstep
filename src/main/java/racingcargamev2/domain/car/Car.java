@@ -3,7 +3,7 @@ package racingcargamev2.domain.car;
 import racingcargamev2.domain.car.policy.MovePolicy;
 import racingcargamev2.domain.car.policy.RandomMovePolicy;
 
-class Car {
+public class Car {
 
     private final Name name;
     private final Position position;

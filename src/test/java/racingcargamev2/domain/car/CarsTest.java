@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import racingcargamev2.domain.car.policy.AlwayMovePolicy;
+import racingcargamev2.domain.car.policy.NeverMovePolicy;
 
 public class CarsTest {
 
@@ -29,5 +31,23 @@ public class CarsTest {
                 CarDescription.of("lee", 0),
                 CarDescription.of("kim", 0)
         ));
+    }
+
+    @DisplayName("모든 자동차를 움직일 수 있다.")
+    @Test
+    void moveAll() {
+        Cars cars = Cars.valueOf(
+                List.of(Car.of("lee", new AlwayMovePolicy()),
+                        Car.of("kim", new NeverMovePolicy())));
+
+        cars.moveAll();
+        cars.moveAll();
+
+        List<CarDescription> carDescriptions = cars.describeAll();
+        assertThat(carDescriptions).hasSize(2)
+                .containsAnyElementsOf(List.of(
+                        CarDescription.of("lee", 2),
+                        CarDescription.of("kim ", 0)
+                ));
     }
 }

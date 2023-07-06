@@ -1,11 +1,16 @@
 package racingcargamev2.domain.game;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import racingcargamev2.domain.car.Car;
 import racingcargamev2.domain.car.CarDescription;
+import racingcargamev2.domain.car.Cars;
+import racingcargamev2.domain.car.policy.AlwayMovePolicy;
+import racingcargamev2.domain.car.policy.NeverMovePolicy;
 
 public class RacingGameTest {
 
@@ -21,12 +26,46 @@ public class RacingGameTest {
 
     @DisplayName("실시간 자동차 현황을 제공한다.")
     @Test
-    void race() {
+    void generateRoundSummary() {
         RacingGame game = RacingGame.of(2, List.of("lee"));
 
         RoundSummary roundSummary = game.generateRoundSummary();
 
         assertThat(roundSummary)
                 .isEqualTo(RoundSummary.from(List.of(CarDescription.of("lee", 0))));
+    }
+
+    @DisplayName("잔여 라운드가 존재하지 않으면, 레이스를 할 수 없다.")
+    @Test
+    void raceWhenNoRoundExist() {
+        RacingGame game = RacingGame.of(1, Cars.valueOf(
+                List.of(Car.of("lee", new AlwayMovePolicy()),
+                        Car.of("kim", new NeverMovePolicy()))));
+
+        game.race();
+
+        assertThatThrownBy(game::race).isInstanceOf(IllegalStateException.class)
+                .hasMessage("게임이 종료되어 더 이상 경주를 할 수 없습니다.");
+    }
+
+
+    @DisplayName("모든 자동차를 이동시키면, 라운드를 감소 시켜야 한다.")
+    @Test
+    void race() {
+        RacingGame game = RacingGame.of(2, Cars.valueOf(
+                List.of(Car.of("lee", new AlwayMovePolicy()),
+                        Car.of("kim", new NeverMovePolicy()))));
+
+        game.race();
+        game.race();
+
+        List<CarDescription> carDescriptions = game.generateRoundSummary().getCarDescriptions();
+        assertThat(carDescriptions).hasSize(2)
+                .containsAnyElementsOf(List.of(
+                        CarDescription.of("lee", 2),
+                        CarDescription.of("kim ", 0)
+                ));
+
+        assertThat(game.isEnd()).isTrue();
     }
 }
