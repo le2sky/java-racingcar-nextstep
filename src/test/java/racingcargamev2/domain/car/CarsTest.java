@@ -13,7 +13,7 @@ public class CarsTest {
     @DisplayName("자동차는 적어도 하나 이상이어야 한다.")
     @Test
     void carNamesLength() {
-        assertThatThrownBy(() -> Cars.of(Collections.emptyList()))
+        assertThatThrownBy(() -> Cars.from(Collections.emptyList()))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("자동차는 적어도 하나 이상이어야 합니다.");
     }
@@ -21,7 +21,7 @@ public class CarsTest {
     @DisplayName("모든 자동차의 현재 정보를 가져온다")
     @Test
     void describeAll() {
-        Cars cars = Cars.of(List.of("lee", "kim"));
+        Cars cars = Cars.from(List.of("lee", "kim"));
 
         List<CarDescription> carDescriptions = cars.describeAll();
 

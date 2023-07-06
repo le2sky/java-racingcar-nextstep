@@ -27,6 +27,6 @@ public class RacingGameTest {
         RoundSummary roundSummary = game.generateRoundSummary();
 
         assertThat(roundSummary)
-                .isEqualTo(RoundSummary.of(List.of(CarDescription.of("lee", 0))));
+                .isEqualTo(RoundSummary.from(List.of(CarDescription.of("lee", 0))));
     }
 }

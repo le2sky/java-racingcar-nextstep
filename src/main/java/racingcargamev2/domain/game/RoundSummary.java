@@ -12,7 +12,7 @@ public class RoundSummary {
         this.carDescriptions = carDescriptions;
     }
 
-    public static RoundSummary of(final List<CarDescription> carDescriptions) {
+    public static RoundSummary from(final List<CarDescription> carDescriptions) {
         return new RoundSummary(carDescriptions);
     }
 

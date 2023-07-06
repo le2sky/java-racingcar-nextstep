@@ -1,43 +1,38 @@
 package racingcargamev2.domain.car;
 
-class Car {
+import racingcargamev2.domain.car.policy.MovePolicy;
+import racingcargamev2.domain.car.policy.RandomMovePolicy;
 
-    private static final int MIN_CONDITION_RANGE = 0;
-    private static final int MAX_CONDITION_RANGE = 9;
-    private static final int MIN_MOVE_NUM = 4;
+class Car {
 
     private final Name name;
     private final Position position;
+    private final MovePolicy movePolicy;
 
     private Car(final String name) {
-        this.name = Name.of(name);
+        this.name = Name.from(name);
         this.position = Position.zero();
+        this.movePolicy = new RandomMovePolicy();
     }
 
-    public static Car of(final String name) {
+    private Car(final String name, final MovePolicy movePolicy) {
+        this.name = Name.from(name);
+        this.position = Position.zero();
+        this.movePolicy = movePolicy;
+    }
+
+    public static Car from(final String name) {
         return new Car(name);
     }
 
-    public void move(final int condition) {
-        checkMoveConditionInRange(condition);
+    public static Car of(final String name, final MovePolicy movePolicy) {
+        return new Car(name, movePolicy);
+    }
 
-        if (isMovable(condition)) {
+    public void move() {
+        if (movePolicy.isMovable()) {
             position.move();
         }
-    }
-
-    private void checkMoveConditionInRange(final int condition) {
-        if (isMoveConditionInRange(condition)) {
-            throw new IllegalArgumentException("전진에 필요한 숫자는 0에서 9사이의 숫자입니다.");
-        }
-    }
-
-    private boolean isMoveConditionInRange(final int condition) {
-        return condition < MIN_CONDITION_RANGE || condition > MAX_CONDITION_RANGE;
-    }
-
-    private boolean isMovable(final int condition) {
-        return condition >= MIN_MOVE_NUM;
     }
 
     public CarDescription describeSelf() {

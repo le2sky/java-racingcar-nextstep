@@ -10,7 +10,7 @@ public class NameTest {
     @DisplayName("자동차 이름은 5자를 초과할 수 없다.")
     @Test
     void carNameLength() {
-        assertThatThrownBy(() -> Name.of("123456"))
+        assertThatThrownBy(() -> Name.from("123456"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("자동차 이름은 5자를 초과할 수 없습니다.");
     }
@@ -18,7 +18,7 @@ public class NameTest {
     @DisplayName("자동차 이름은 빈문자열이 될 수 없다.")
     @Test
     void carNameIsNotEmptyString() {
-        assertThatThrownBy(() -> Name.of(""))
+        assertThatThrownBy(() -> Name.from(""))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("자동차 이름은 빈 문자열이 될 수 없습니다.");
     }
@@ -26,7 +26,7 @@ public class NameTest {
     @DisplayName("자동차 이름에 널값을 허용하지 않는다.")
     @Test
     void carNameIsNotAllowNull() {
-        assertThatThrownBy(() -> Name.of(null))
+        assertThatThrownBy(() -> Name.from(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("자동차 이름에 널값을 허용하지 않습니다.");
     }

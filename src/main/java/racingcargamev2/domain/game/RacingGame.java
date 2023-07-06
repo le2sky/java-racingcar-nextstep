@@ -9,8 +9,8 @@ public class RacingGame {
     private final Cars cars;
 
     private RacingGame(final int round, final List<String> carNames) {
-        this.round = Round.of(round);
-        this.cars = Cars.of(carNames);
+        this.round = Round.from(round);
+        this.cars = Cars.from(carNames);
     }
 
     public static RacingGame of(final int round, final List<String> carNames) {
@@ -26,6 +26,6 @@ public class RacingGame {
     }
 
     public RoundSummary generateRoundSummary() {
-        return RoundSummary.of(cars.describeAll());
+        return RoundSummary.from(cars.describeAll());
     }
 }

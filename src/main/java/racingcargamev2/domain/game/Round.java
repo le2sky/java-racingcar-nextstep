@@ -14,7 +14,7 @@ class Round {
         this.round = round;
     }
 
-    public static Round of(final int round) {
+    public static Round from(final int round) {
         return new Round(round);
     }
 

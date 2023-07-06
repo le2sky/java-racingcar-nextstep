@@ -11,7 +11,7 @@ public class PositionTest {
     @DisplayName("포지션은 음수일 수 없다.")
     @Test
     void negativePosition() {
-        assertThatThrownBy(() -> Position.of(-1))
+        assertThatThrownBy(() -> Position.from(-1))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("위치는 음수일 수 없습니다.");
     }
@@ -19,11 +19,11 @@ public class PositionTest {
     @DisplayName("포지션을 증가시킨다.")
     @Test
     void increasePosition() {
-        Position position = Position.of(0);
+        Position position = Position.from(0);
 
         position.move();
         position.move();
 
-        assertThat(position).isEqualTo(Position.of(2));
+        assertThat(position).isEqualTo(Position.from(2));
     }
 }

@@ -16,9 +16,9 @@ public class Cars {
         this.cars = cars;
     }
 
-    public static Cars of(final List<String> carNames) {
+    public static Cars from(final List<String> carNames) {
         return new Cars(carNames.stream()
-                .map(Car::of)
+                .map(Car::from)
                 .collect(toList()));
     }
 

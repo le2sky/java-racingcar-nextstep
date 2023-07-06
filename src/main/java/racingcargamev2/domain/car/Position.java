@@ -12,12 +12,12 @@ class Position {
         this.position = position;
     }
 
-    public static Position zero() {
-        return new Position(0);
+    public static Position from(final int position) {
+        return new Position(position);
     }
 
-    public static Position of(final int position) {
-        return new Position(position);
+    public static Position zero() {
+        return new Position(0);
     }
 
     private void checkNegativePosition(final int position) {
