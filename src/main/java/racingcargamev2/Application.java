@@ -17,6 +17,6 @@ public class Application {
             game.race();
             OutputView.writeRoundSummary(game.generateRoundSummary());
         }
-        OutputView.writeWinner(game.showWinners());
+        OutputView.writeWinners(game.showWinners());
     }
 }

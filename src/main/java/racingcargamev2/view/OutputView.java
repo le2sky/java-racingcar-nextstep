@@ -28,11 +28,11 @@ public class OutputView {
                 makePositionLine(carDescription)));
     }
 
-    private static String makePositionLine(CarDescription description) {
-        return POSITION_SHAPE.repeat(description.getPosition());
+    private static String makePositionLine(CarDescription carDescription) {
+        return POSITION_SHAPE.repeat(carDescription.getPosition());
     }
 
-    public static void writeWinner(List<String> winners) {
+    public static void writeWinners(List<String> winners) {
         System.out.println((makePrefixMessage(winners) + WINNER_POSTFIX_MESSAGE));
     }
 
